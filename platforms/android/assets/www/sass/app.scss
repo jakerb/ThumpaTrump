@@ -289,6 +289,32 @@ body {
 				float: left;
 				margin-right: 150px;
 
+				&.camel {
+
+					.wig {
+						display: none!important;
+					}
+					
+					&.uppercut,
+					&.righthook,
+					&.lefthook {
+						.trump {
+							background-image: url(../img/head_humphit.png);
+
+
+							&.active {
+								.wig {
+									display: none!important;
+								}
+							}
+						}
+					}
+
+					.trump {
+						background-image: url(../img/head_hump.png);
+					}
+				}
+
 				&.uppercut {
 					.trump {
 						background-image: url(../img/head_uppercut.png);
@@ -332,8 +358,13 @@ body {
 						background: #8EC7D2;
 						left: 0;
 						content: '';
+						z-index: 3;
 					}
 				}
+			}
+
+			.whack {
+				position: relative;
 			}
 
 			.trump {
@@ -364,18 +395,6 @@ body {
 				}
 
 
-				&:before {
-					content: '';
-					width: 36px;
-					left: 53px;
-					height: 120px;
-					background: $skin;
-					position: absolute;
-					bottom: -95px;
-					z-index: 0;
-					border-radius: 30px;
-				}
-
 				.wig {
 					width: 118px;
 					height: 51px;
@@ -402,6 +421,20 @@ body {
 						background-image: url(../img/wig.png);
 					}
 				}
+			}
+
+			.neck {
+				content: '';
+				width: 36px;
+				left: 50px;
+				height: 120px;
+				background: $skin;
+				position: absolute;
+				bottom: -95px;
+				z-index: 0;
+				top: 130px;
+				height: 100%;
+				border-radius: 30px;
 			}
 		}
 	}

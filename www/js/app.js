@@ -3,8 +3,8 @@ var trump = {
 	init:function() {
 		var that = this;
 		var whack = $(that.whack).parent().find('.whackWrapper').html();
-		whack = '<div class="whackWrapper active">' + whack + '</div>';
 		that.whackDom = whack;
+
 		that.loaderBar(1);
 
 		if(!localStorage.intro) {
@@ -32,7 +32,9 @@ var trump = {
 			$(e.currentTarget).closest('.whackWrapper').removeClass('active');
 			that.loaderBar();
 			that.changeScore(true);
-			$(that.game).append(that.whackDom);
+			var camel = that.randomAction() > 1 ? 'camel' : '';
+			var whack = '<div class="whackWrapper ' + camel + ' active">' + whack + '</div>';
+			$(that.game).append(whack);
 			$(that.game).css('width', $(that.game).width() * 5);
 			that.offset = that.offset - ($(that.whack).width() + 150);
 			setTimeout(function() {
@@ -53,21 +55,36 @@ var trump = {
 			  	$(that.activeTrump).addClass('righthook');
 			  	that.punchFx.playclip()
 			  	$(that.leftGlove).addClass('active');
-			  	that.respond(1);
+			  	if(that.camelActive) {
+			  		that.respond(3);
+			  		that.camelActive = false;
+			  	} else {
+			  		that.respond(1);
+			  	}
 			  	
 			  }
 			  if(direction == 'up') {
 			  	$(that.activeTrump).addClass('uppercut');
 			  	that.punchFx.playclip()
 			  	$(that.upGlove).addClass('active');
-			  	that.respond(0);
+			  	if(that.camelActive) {
+			  		that.respond(3);
+			  		that.camelActive = false;
+			  	} else {
+			  		that.respond(0);
+			  	}
 			  	
 			  }
 			  if(direction == 'right') {
 			  	$(that.activeTrump).addClass('lefthook');
 			  	that.punchFx.playclip()
 			  	$(that.rightGlove).addClass('active');
-			  	that.respond(2);
+			  	if(that.camelActive) {
+			  		that.respond(3);
+			  		that.camelActive = false;
+			  	} else {
+			  		that.respond(2);
+			  	}
 			  	
 			  }
 			}
@@ -99,7 +116,22 @@ var trump = {
 		$(that.activeTrump).find('.trump').addClass('active');
 		$(that.activeTrump).removeClass('active');
 
-		$(that.game).append(that.whackDom);
+		var camel = that.randomAction() > 1 ? 'camel' : '';
+		var whack = '<div class="whackWrapper ' + camel + ' active">' + that.whackDom + '</div>';
+		if(camel == 'camel') {
+			that.camelActive = true;
+			setTimeout(function() {
+				if(that.camelActive) {
+					that.respond(that.actionSet);
+				}
+			}, 2000);
+
+		} else {
+			that.camelActive = false;
+		}
+
+		$(that.game).append(whack);
+
 		$(that.game).css('width', $(that.game).width() * 5);
 		that.offset = that.offset - ($(that.whack).width() + 150);
 
@@ -161,6 +193,8 @@ trump.currentScore = 0;
 trump.action = ['swipe up', 'swipe left', 'swipe right'];
 trump.actionSet = 0;
 trump.lives = 3;
+trump.camelRate = 100;
+trump.camelActive = false;
 trump.livesDom = '.lives i';
 trump.hit = 'tap';
 trump.head = '.trump';

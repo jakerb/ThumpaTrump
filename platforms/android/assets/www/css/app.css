@@ -215,6 +215,14 @@ body {
         display: inline-block;
         float: left;
         margin-right: 150px; }
+        .app .row .game .whackWrapper.camel .wig {
+          display: none !important; }
+        .app .row .game .whackWrapper.camel.uppercut .trump, .app .row .game .whackWrapper.camel.righthook .trump, .app .row .game .whackWrapper.camel.lefthook .trump {
+          background-image: url(../img/head_humphit.png); }
+          .app .row .game .whackWrapper.camel.uppercut .trump.active .wig, .app .row .game .whackWrapper.camel.righthook .trump.active .wig, .app .row .game .whackWrapper.camel.lefthook .trump.active .wig {
+            display: none !important; }
+        .app .row .game .whackWrapper.camel .trump {
+          background-image: url(../img/head_hump.png); }
         .app .row .game .whackWrapper.uppercut .trump {
           background-image: url(../img/head_uppercut.png); }
         .app .row .game .whackWrapper.righthook .trump {
@@ -242,7 +250,10 @@ body {
             height: 100%;
             background: #8EC7D2;
             left: 0;
-            content: ''; }
+            content: '';
+            z-index: 3; }
+      .app .row .game .whack {
+        position: relative; }
       .app .row .game .trump {
         margin-top: 20px;
         text-align: center;
@@ -266,16 +277,6 @@ body {
           top: 0;
           z-index: 8;
           display: none; }
-        .app .row .game .trump:before {
-          content: '';
-          width: 36px;
-          left: 53px;
-          height: 120px;
-          background: #E98563;
-          position: absolute;
-          bottom: -95px;
-          z-index: 0;
-          border-radius: 30px; }
         .app .row .game .trump .wig {
           width: 118px;
           height: 51px;
@@ -298,5 +299,17 @@ body {
           .app .row .game .trump.active .wig {
             top: -80px;
             background-image: url(../img/wig.png); }
+      .app .row .game .neck {
+        content: '';
+        width: 36px;
+        left: 50px;
+        height: 120px;
+        background: #E98563;
+        position: absolute;
+        bottom: -95px;
+        z-index: 0;
+        top: 130px;
+        height: 100%;
+        border-radius: 30px; }
 
 /*# sourceMappingURL=app.css.map */
