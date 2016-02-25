@@ -5,7 +5,6 @@ var trump = {
 		var whack = $(that.whack).parent().find('.whackWrapper').html();
 		that.whackDom = whack;
 
-		that.loaderBar(1);
 
 		if(!localStorage.intro) {
 			$(that.intro).addClass('on');
@@ -94,7 +93,7 @@ var trump = {
 	respond:function(action) {
 		var that = this;
 		
-		//that.loaderBar();
+		//that.loaderBar(2);
 
 		if(action == that.actionSet) {
 			that.changeScore(true);
@@ -113,8 +112,12 @@ var trump = {
 		}
 
 
-		$(that.activeTrump).find('.trump').addClass('active');
-		$(that.activeTrump).removeClass('active');
+		
+
+		if(action != 3) {
+			$(that.activeTrump).find('.trump').addClass('active');
+			$(that.activeTrump).removeClass('active');
+		}
 
 		var camel = that.randomAction() > 1 ? 'camel' : '';
 		var whack = '<div class="whackWrapper ' + camel + ' active">' + that.whackDom + '</div>';
@@ -129,6 +132,8 @@ var trump = {
 		} else {
 			that.camelActive = false;
 		}
+
+
 
 		$(that.game).append(whack);
 
