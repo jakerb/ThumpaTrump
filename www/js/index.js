@@ -50,3 +50,7 @@ var app = {
 
     WebView webview = new WebView(this);
     webview.getSettings().setCacheMode(2);
+
+    WebSettings settings = this.appView.getSettings();
+    settings.setSupportZoom(true);
+    settings.setBuiltInZoomControls(true);
