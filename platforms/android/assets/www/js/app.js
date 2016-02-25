@@ -6,11 +6,22 @@ var trump = {
 		whack = '<div class="whackWrapper active">' + whack + '</div>';
 		that.whackDom = whack;
 		that.loaderBar(1);
+
+		if(!localStorage.intro) {
+			$(that.intro).addClass('on');
+			localStorage.setItem("intro", "complete");
+		}
+
 		that.touch();
 
 		$(that.restartBtn).on('click', function(e) {
 			e.preventDefault();
 			location.reload();
+		});
+
+		$(that.startGame).on('click', function(e) {
+			e.preventDefault();
+			$(that.intro).removeClass('on');
 		});
 	},
 
@@ -41,18 +52,21 @@ var trump = {
 			  if(direction == 'left') {
 			  	$(that.activeTrump).addClass('righthook');
 			  	that.punchFx.playclip()
+			  	$(that.leftGlove).addClass('active');
 			  	that.respond(1);
 			  	
 			  }
 			  if(direction == 'up') {
 			  	$(that.activeTrump).addClass('uppercut');
 			  	that.punchFx.playclip()
+			  	$(that.upGlove).addClass('active');
 			  	that.respond(0);
 			  	
 			  }
 			  if(direction == 'right') {
 			  	$(that.activeTrump).addClass('lefthook');
 			  	that.punchFx.playclip()
+			  	$(that.rightGlove).addClass('active');
 			  	that.respond(2);
 			  	
 			  }
@@ -81,9 +95,10 @@ var trump = {
 			}
 		}
 
+
 		$(that.activeTrump).find('.trump').addClass('active');
 		$(that.activeTrump).removeClass('active');
-		
+
 		$(that.game).append(that.whackDom);
 		$(that.game).css('width', $(that.game).width() * 5);
 		that.offset = that.offset - ($(that.whack).width() + 150);
@@ -91,7 +106,9 @@ var trump = {
 		that.actionSet = that.randomAction();
 		$(that.actionDom).text(that.action[that.actionSet]);
 
+
 		setTimeout(function() {
+			$(that.activeGlove).removeClass('active');
 			$(that.game).velocity({
 				marginLeft: that.offset
 			}, 200);
@@ -141,21 +158,27 @@ var trump = {
 
 trump.level = 1;
 trump.currentScore = 0;
-trump.action = ['uppercut', 'left hook', 'right hook'];
-trump.actionSet = 1;
+trump.action = ['swipe up', 'swipe left', 'swipe right'];
+trump.actionSet = 0;
 trump.lives = 3;
 trump.livesDom = '.lives i';
 trump.hit = 'tap';
 trump.head = '.trump';
 trump.restartBtn = '.restart-game';
 trump.activeTrump = '.whackWrapper.active';
+trump.upGlove = '.glove.up';
+trump.activeGlove = '.glove.active';
+trump.leftGlove = '.glove.left';
+trump.rightGlove = '.glove.right';
 trump.score = '.scoreBoardScore';
 trump.whack = '.game .whackWrapper';
 trump.game = '.game';
 trump.actionDom = '.action h4';
 trump.loader = '.loader .filler';
+trump.intro = '.intro';
 trump.offset = 0;
 trump.whackDom = '';
+trump.startGame = 'a.start-game';
 trump.punchFx = ss_soundbits('fx/punch.mp3');
 
 trump.init();
