@@ -34,6 +34,39 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+
+        var orgWidth;
+        var orgHeight;
+        if(window.localStorage.getItem('orgWidth')==null){
+          orgWidth=screen.width;
+          orgHeight=screen.height;
+          window.localStorage.setItem('orgWidth',orgWidth)
+          window.localStorage.setItem('orgHeight',orgHeight)
+        }else {
+          orgWidth=parseInt(window.localStorage.getItem('orgWidth'));
+          orgHeight=parseInt(window.localStorage.getItem('orgHeight'));
+          if(orgWidth<screen.width){
+              orgWidth=screen.width;
+              orgHeight=screen.height;
+              window.localStorage.setItem('orgWidth',orgWidth)
+              window.localStorage.setItem('orgHeight',orgHeight)
+          }
+        }
+
+      var nScale=orgWidth/320;
+      if(orgHeight/480<nScale)nScale=orgHeight/480;
+      var transx=((orgWidth-320)/2)/nScale;
+      var transy=((orgHeight-480)/2)/nScale;
+      if(orgHeight/nScale-480>0){
+          transy=transy-(orgHeight/nScale-480)/2
+      }
+      if(nScale!=1){
+        document.getElementById('body').style.webkitTransform="scale("+nScale
+    +","+nScale+") translate("+transx+"px, "+transy+"px)";
+        document.getElementById('body').style.width="320px";
+        document.getElementById('body').style.height="480px";
+      }
+
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
